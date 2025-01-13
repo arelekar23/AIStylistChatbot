@@ -1,50 +1,56 @@
-# React + TypeScript + Vite
+# AI Stylist Chatbot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Problem Statement
+The AI Stylist Chatbot solves the problem of providing users with personalized outfit recommendations based on their uploaded photos. Users can post photos of their outfits and ask for suggestions, and the chatbot returns tailored outfit recommendations for various occasions and weather conditions. It also provides links to potential outfit options.
 
-Currently, two official plugins are available:
+Due to security restrictions with Google Gemini API, photos of people cannot be directly uploaded. Instead, Azure Vision AI is used to analyze the photo, extract descriptions, and relevant tags and use them in the recommendation process.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Tools and Frameworks Used
+- **Google Gemini API**: For handling chat functionality and generating personalized recommendations.
+- **Azure Vision AI**: For analyzing uploaded photos and extracting descriptions and tags.
+- **Node.js & Express.js**: Backend server implementation.
+- **Vite & React**: Frontend framework for user interface.
+- **Nodemon**: For auto-restarting the backend server during development.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## Instructions to Run the Solution
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+### 2. Add .env files
+1. Backend .env
+```bash
+VISION_API_KEY=<your-azure-vision-api-key>
+VISION_ENDPOINT=<your-azure-vision-endpoint>
+GOOGLE_GENAI_KEY=<your-google-generative-ai-api-key>
+FRONTEND_URL="http://localhost:5173"
+PORT=5001
+```
+2. Frontend .env
+```bash
+VITE_API_URL="http://localhost:5001" # Backend API endpoint
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 3. Install Dependencies inside both frontend and backend directory
+```bash
+npm install
+```
+### 4. Start the Application
+Backend:
+```bash
+nodemon src/server.ts
+```
+Frontend:
+```bash
+npm run dev
+```
+### 5. Access the Application
+```bash
+http://localhost:5173
 ```
